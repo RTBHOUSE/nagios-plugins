@@ -37,7 +37,7 @@ Next for help and to see what parameters this plugin accepts do:
  All variables can be returned as performance data for graphing. Graphios plugin
  was testeted ( https://github.com/shawn-sterling/graphios ) .
 
-#### Example of Usage command-line uss ####
+#### Example of Usage command-line usage ####
 
 Generate performace data to graphite via garphios plugin ( also show all possible variables) 
 

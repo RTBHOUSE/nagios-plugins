@@ -5,7 +5,7 @@
 # Program : check_atop_log.pl
 # Version : 0.1 ( first beta )
 # Date    : Nov 6, 2013
-# Author  : Marek Grzybowski - marek(at)osgrator.com
+# Author  : Marek Grzybowski - marek.grzybowski(at)rtbhouse.com
 # Licence : GPL - summary below, full text at http://www.fsf.org/licenses/gpl.txt
 #
 # =========================== PROGRAM LICENSE =================================
@@ -2115,7 +2115,10 @@ foreach my $switch (@atopsarswitches) {
         my $key=$key_prefix."_".$line1[$i];
         my $val=$line2[$i];
         if (defined $val) {
-          $atopsarvar{$key}=$val;
+          # sanity check, only numbers go as value
+          if ( $val =~ /([0-9\.]+)/ ) {
+            $atopsarvar{$key}=$1;
+          }
         }
       }
     } else {
@@ -2132,7 +2135,10 @@ foreach my $switch (@atopsarswitches) {
             my $key=$key_prefix."_".$line2[1]."_".$line1[$i];
             my $val=$line2[$i];
             if (defined $val) {
-              $atopsarvar{$key}=$val;
+              # sanity check, only numbers go as value
+              if ( $val =~ /([0-9\.]+)/ ) {
+                $atopsarvar{$key}=$1;
+              }
             }
           }
         }

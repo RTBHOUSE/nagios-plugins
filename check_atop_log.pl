@@ -2104,7 +2104,13 @@ foreach my $switch (@atopsarswitches) {
   $nlib->verb("Parsing output of command:".$atopsarcmd." ".$switch);
 
   if ( $? != 0 ) { print "CRITICAL ERROR - atopsar command failed: $atopsarcmd\n"; exit $ERRORS{'CRITICAL'}; }
-  my @atopsar_lines=grep(!/\.\.\.\.\.\.\.\.\.\.\.\.\./,grep(/^\d\d:\d\d:\d\d\s+/,split(/\n/,$atopsr_raw)));
+  #my @atopsar_lines=grep(!/\.\.\.\.\.\.\.\.\.\.\.\.\./,grep(/^\d\d:\d\d:\d\d\s+/,split(/\n/,$atopsr_raw)));
+  # atopsar return sometimes more lines, for example:
+  #   atopsar  -r /var/log/atop.log.1 -a -x -S -b 23:59 -e 00:00 -p
+  # will return all day, so we fiter out only last minute 
+  # grep will filter all lines that are not from right time period
+  my @atopsar_lines=grep(!/\.\.\.\.\.\.\.\.\.\.\.\.\./,grep(/^(0?$bhour:0?$bmin)|(0?$ehour:0?$emin):\d\d\s+/,split(/\n/,$atopsr_raw)));  
+
 #  print "atopsar_lines=".scalar @atopsar_lines;
   if (scalar @atopsar_lines == 2) {
     if ( $atopsar_lines[0] =~ /(.*)_(\S+)_/) {

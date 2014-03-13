@@ -52,3 +52,28 @@ Check if any eth* inteface reached thtoughpput limit 700Mb/s Warning 900Mb/s Cri
         ./check_atop_log.pl -o 'PATTERN:if_eth.*_imbps,WARN:>700,CRIT:>900' -o 'PATTERN:if_eth.*_ombps,WARN:>700,CRIT:>900' 
 
 
+check_sockstat.pl
+-----------------
+
+/proc/net/sockstat contains information about open soctets , this plugin
+monitotor those values and compare to given thresholds.   
+
+Plugin returns stats variables as perfomance data for further nagios 2.0
+post-processing, it was testet witch graphios. ( number of data change dinamicly
+as sytem change, so write in to rrd file is inefficient  )
+
+This program is based on check_redis.pl by William Leibzon - william(at)leibzon.org
+
+# ============================= SETUP NOTES ====================================
+
+Example of Usage command-line use:
+
+Generate performace data to graphite via garphios plugin ( also show all possible variables) 
+
+  ./check_sockstat.pl -A   
+
+Check if there are limit for TCP ( http://blog.tsunanet.net/2011/03/out-of-socket-memory.html )
+
+  ./check_sockstat.pl -o 'PATTERN:TCP_mem_usage_percent,WARN:>70,CRIT:>85' -o 'PATTERN:TCP_orphans_usage_percent,WARN:>20,CRIT:>30' 
+
+

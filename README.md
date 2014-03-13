@@ -64,7 +64,7 @@ as sytem change, so write in to rrd file is inefficient  )
 
 This program is based on check_redis.pl by William Leibzon - william(at)leibzon.org
 
-# ============================= SETUP NOTES ====================================
+#### SETUP NOTES ####
 
 Example of Usage command-line use:
 
